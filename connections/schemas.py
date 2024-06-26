@@ -34,13 +34,14 @@ class GeneralIn(SQLModel):
 
 
 class UpdateGeneral(GeneralIn):
-    general_id:int
+    information_id:int
 
 
 
 class DepartmentIn(SQLModel):
     name:str
     location_id: int
+    faculty_id:int
     contact_email: str
     contact_phone: str
     head_of_department: str
@@ -51,7 +52,6 @@ class UpdateDepartment(DepartmentIn):
 
 
 class FacultyIn(SQLModel):
-    department_id: int
     name: str
     location_id: int
     email: str

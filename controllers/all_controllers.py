@@ -23,7 +23,7 @@ from controllers import responses as r
 async def add_location(body: LocationIn, db: Session):
     try:
         stmt = select(Location).where(
-            Location.name == body.name, Location.lattitude == body.lattitude
+            Location.name == body.name, Location.latitude == body.latitude
         )
         check = db.exec(stmt).first()
         if check:
@@ -47,6 +47,8 @@ async def edit_location(body: UpdateLocation, db: Session):
         data = body.model_dump(exclude_unset=True)
         check.updated_at = datetime.now(tz)
         for key, value in data.items():
+            if key == "location_id":
+                continue
             setattr(check, key, value)
         db.add(check)
         db.commit()
@@ -99,6 +101,8 @@ async def edit_courses(body: UpdateCourse, db: Session):
         data = body.model_dump(exclude_unset=True)
         check.updated_at = datetime.now(tz)
         for key, value in data.items():
+            if key == "course_id":
+                continue
             setattr(check, key, value)
         db.add(check)
         db.commit()
@@ -126,7 +130,7 @@ async def get_courses(db: Session):
 async def add_general(body: GeneralIn, db: Session):
     try:
         stmt = select(Information).where(
-            Information.tittle == body.title,Information.type == body.type
+            Information.title == body.title,Information.type == body.type
         )
         check = db.exec(stmt).first()
         if check:
@@ -143,13 +147,15 @@ async def add_general(body: GeneralIn, db: Session):
 
 async def edit_general(body: UpdateGeneral, db: Session):
     try:
-        stmt = select(Information).where(Information.id == body.general_id)
+        stmt = select(Information).where(Information.id == body.information_id)
         check = db.exec(stmt).first()
         if not check:
             return r.not_found
         data = body.model_dump(exclude_unset=True)
         check.updated_at = datetime.now(tz)
         for key, value in data.items():
+            if key == "information_id":
+                continue
             setattr(check, key, value)
         db.add(check)
         db.commit()
@@ -200,6 +206,8 @@ async def edit_department(body: UpdateDepartment, db: Session):
         data = body.model_dump(exclude_unset=True)
         check.updated_at = datetime.now(tz)
         for key, value in data.items():
+            if key == "department_id":
+                continue
             setattr(check, key, value)
         db.add(check)
         db.commit()
@@ -233,7 +241,7 @@ async def add_faculty(body: FacultyIn, db: Session):
         check = db.exec(stmt).first()
         if check:
             return r.exists
-        new = Department(**body.model_dump())
+        new = Faculty(**body.model_dump())
         db.add(new)
         db.commit()
         return r.created
@@ -252,6 +260,8 @@ async def edit_faculty(body: UpdateFaculty, db: Session):
         data = body.model_dump(exclude_unset=True)
         check.updated_at = datetime.now(tz)
         for key, value in data.items():
+            if key == "faculty_id":
+                continue
             setattr(check, key, value)
         db.add(check)
         db.commit()

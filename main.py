@@ -28,8 +28,10 @@ app = FastAPI(
 )
 
 app.include_router(all_routers.router)
-app.include_router(all_routers.router2)
 app.include_router(all_routers.router3)
 app.include_router(all_routers.router4)
-app.include_router(all_routers.router5)
 app.include_router(all_routers.common)
+
+
+app.include_router(all_routers.router2)
+app.include_router(all_routers.router5)

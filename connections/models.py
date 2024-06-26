@@ -30,6 +30,7 @@ class Department(AbstractModel, table=True):
     __tablename__ = "departments"
     name: str = Field(index=True)
     location_id: int = Field(foreign_key="locations.id")
+    faculty_id: int = Field(foreign_key="faculty.id",nullable=True)
     contact_email: str
     contact_phone: str
     head_of_department: str
@@ -41,7 +42,6 @@ class Department(AbstractModel, table=True):
 
 class Faculty(AbstractModel, table=True):
     __tablename__ = "faculty"
-    department_id: int = Field(foreign_key="departments.id")
     name: str = Field(index=True)
     location_id: int = Field(foreign_key="locations.id")
     email: str

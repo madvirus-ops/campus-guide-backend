@@ -90,8 +90,8 @@ async def edit__locations(
     return result
 
 
-@router3.post("/general")
-async def create__general(
+@router3.post("/informations")
+async def create__informations(
     body:GeneralIn,
     request: Request,
     response:Response,
@@ -103,8 +103,8 @@ async def create__general(
 
 
 
-@router3.get("/general")
-async def get__general(
+@router3.get("/informations")
+async def get__informations(
     request: Request,
     response:Response,
     db: Session = Depends(get_session),
@@ -115,8 +115,8 @@ async def get__general(
 
 
 
-@router3.put("/general")
-async def edit__locations(
+@router3.put("/informations")
+async def edit__informations(
     body:UpdateGeneral,
     request: Request,
     response:Response,
@@ -208,6 +208,20 @@ async def delete__something(
     response:Response,
     db: Session = Depends(get_session),
 ):
+    """
+
+    ```
+    class DeleteType(str,Enum):
+        department = "department"
+        faculty = "faculty"
+        information = "information"
+        location = "location"
+        course = "courses"
+
+
+    ```
+
+    """
     result = await delete_somethings(body.id,body.delete_type.value,db)
     response.status_code = result['code']
     return result
