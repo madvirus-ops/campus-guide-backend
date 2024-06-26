@@ -67,7 +67,7 @@ class DeleteType(str,Enum):
     faculty = "faculty"
     information = "information"
     location = "location"
-    course = "courses"
+    course = "course"
 
 class DeleteIN(SQLModel):
     id:int

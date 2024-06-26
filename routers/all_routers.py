@@ -216,7 +216,7 @@ async def delete__something(
         faculty = "faculty"
         information = "information"
         location = "location"
-        course = "courses"
+        course = "course"
 
 
     ```

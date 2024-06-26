@@ -285,30 +285,31 @@ async def get_faculty(db: Session):
 
 
 
-def delete_somethings(id:int,delete_type:str,db:Session):
+async def delete_somethings(id: int, delete_type: str, db: Session):
     try:
         delete_type = delete_type.lower()
 
         if delete_type == "course":
             stmt = select(Course).where(Course.id == id)
         elif delete_type == "location":
-            stmt = select(Location).where(Location.id == id).is_delete
+            stmt = select(Location).where(Location.id == id)
         elif delete_type == "information":
             stmt = select(Information).where(Information.id == id)
         elif delete_type == "faculty":
             stmt = select(Faculty).where(Faculty.id == id)
         elif delete_type == "department":
             stmt = select(Department).where(Department.id == id)
-
         else:
-            pass
-        
-        
-        check = db.exec(stmt).dele #TODO
+            return {"code": 400, "message": "Invalid delete_type", "status": "error"}
 
-        return {"code": 200, "message": "deleted successfully", "status": "success"}
+        result = db.exec(stmt).first()
+        if result:
+            db.delete(result)
+            db.commit()
+            return {"code": 200, "message": "Deleted successfully", "status": "success"}
+        else:
+            return {"code": 404, "message": "Item not found", "status": "error"}
 
     except Exception as e:
         print(e.args)
-        return r.error_occured
-
+        return {"code": 500, "message": "An error occurred", "status": "error"}
