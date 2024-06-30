@@ -2,7 +2,6 @@ import os
 import requests as re
 from bs4 import BeautifulSoup
 from dotenv import load_dotenv
-
 import sys
 
 sys.path.append("./")
@@ -16,9 +15,7 @@ endpoint = os.getenv("CELL_LINK")
 
 
 def getMatNoInfo(matno: str):
-
-    url = endpoint + "?matric_no=" + matno
-    res = re.get(url).text
+    res = re.get(endpoint, params={"matric_no": matno}).text
     soup = BeautifulSoup(res, features="html.parser")
 
     def extractor(a, b):
