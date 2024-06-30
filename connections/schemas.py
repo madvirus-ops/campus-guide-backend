@@ -1,7 +1,13 @@
 import sys
+
 sys.path.append("./")
 from sqlmodel import SQLModel
 from enum import Enum
+
+
+class Login(SQLModel):
+    mat_no: str
+
 
 class LocationIn(SQLModel):
     name: str
@@ -13,7 +19,7 @@ class LocationIn(SQLModel):
 
 
 class UpdateLocation(LocationIn):
-    location_id:int
+    location_id: int
 
 
 class CourseIn(SQLModel):
@@ -22,9 +28,9 @@ class CourseIn(SQLModel):
     course_code: str
     credits: int
 
-class UpdateCourse(CourseIn):
-    course_id:int
 
+class UpdateCourse(CourseIn):
+    course_id: int
 
 
 class GeneralIn(SQLModel):
@@ -34,21 +40,20 @@ class GeneralIn(SQLModel):
 
 
 class UpdateGeneral(GeneralIn):
-    information_id:int
-
+    information_id: int
 
 
 class DepartmentIn(SQLModel):
-    name:str
+    name: str
     location_id: int
-    faculty_id:int
+    faculty_id: int
     contact_email: str
     contact_phone: str
     head_of_department: str
 
 
 class UpdateDepartment(DepartmentIn):
-    department_id:int
+    department_id: int
 
 
 class FacultyIn(SQLModel):
@@ -59,16 +64,17 @@ class FacultyIn(SQLModel):
 
 
 class UpdateFaculty(FacultyIn):
-    faculty_id:int
+    faculty_id: int
 
 
-class DeleteType(str,Enum):
+class DeleteType(str, Enum):
     department = "department"
     faculty = "faculty"
     information = "information"
     location = "location"
     course = "course"
 
+
 class DeleteIN(SQLModel):
-    id:int
-    delete_type:DeleteType
+    id: int
+    delete_type: DeleteType

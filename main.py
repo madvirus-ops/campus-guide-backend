@@ -26,7 +26,7 @@ app = FastAPI(
     docs_url="/v1/docs",
     redoc_url="/v1/redoc",
 )
-
+app.include_router(all_routers.login_router)
 app.include_router(all_routers.router)
 app.include_router(all_routers.router3)
 app.include_router(all_routers.router4)
