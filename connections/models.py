@@ -22,8 +22,8 @@ class Location(AbstractModel, table=True):
     longitude: str
     description: str
     thumbnail: str
-    department: Optional["Department"] = Relationship(back_populates="location")
-    faculty: Optional["Faculty"] = Relationship(back_populates="location")
+    department: Optional["Department"] = Relationship(sa_relationship_kwargs={"cascade": "delete"},back_populates="location")
+    faculty: Optional["Faculty"] = Relationship(sa_relationship_kwargs={"cascade": "delete"},back_populates="location")
 
 
 class Department(AbstractModel, table=True):
@@ -34,9 +34,9 @@ class Department(AbstractModel, table=True):
     contact_email: str
     contact_phone: str
     head_of_department: str
-    location: Optional["Location"] = Relationship(back_populates="department")
-    faculty: Optional["Faculty"] = Relationship(back_populates="department")
-    course: Optional["Course"] = Relationship(back_populates="department")
+    location: Optional["Location"] = Relationship(sa_relationship_kwargs={"cascade": "delete"},back_populates="department")
+    faculty: Optional["Faculty"] = Relationship(sa_relationship_kwargs={"cascade": "delete"},back_populates="department")
+    course: Optional["Course"] = Relationship(sa_relationship_kwargs={"cascade": "delete"},back_populates="department")
 
 
 
@@ -47,8 +47,8 @@ class Faculty(AbstractModel, table=True):
     email: str
     bio: str
 
-    location: Optional["Location"] = Relationship(back_populates="faculty")
-    department: Optional["Department"] = Relationship(back_populates="faculty")
+    location: Optional["Location"] = Relationship(sa_relationship_kwargs={"cascade": "delete"},back_populates="faculty")
+    department: Optional["Department"] = Relationship(sa_relationship_kwargs={"cascade": "delete"},back_populates="faculty")
 
 
 class Course(AbstractModel, table=True):
@@ -57,7 +57,7 @@ class Course(AbstractModel, table=True):
     course_name: str
     course_code: str
     credits: int
-    department: Optional["Department"] = Relationship(back_populates="course")
+    department: Optional["Department"] = Relationship(sa_relationship_kwargs={"cascade": "delete"},back_populates="course")
 
 
 
