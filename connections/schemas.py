@@ -5,7 +5,10 @@ from sqlmodel import SQLModel
 from enum import Enum
 
 
-class Login(SQLModel):
+from pydantic import BaseModel, EmailStr, PositiveFloat
+
+
+class Login(BaseModel):
     mat_no: str
 
 
